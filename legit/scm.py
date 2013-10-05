@@ -65,7 +65,7 @@ def stash_it(sync=False):
         LEGIT_TEMPLATE.format(msg)])
 
 
-def unstash_index(sync=False, branch=None):
+def unstash_index(sync=False):
     """Returns an unstash index if one is available."""
 
     repo_check()
@@ -73,12 +73,10 @@ def unstash_index(sync=False, branch=None):
     stash_list = repo.git.execute([git,
         'stash', 'list', '--date=default'])
 
-    if branch is None:
-        branch = repo.head.ref.name
-
     for stash in stash_list.splitlines():
 
         verb = 'syncing' if sync else 'switching'
+        branch = repo.head.ref.name
 
         if (
             (('Legit' in stash) and
@@ -90,12 +88,12 @@ def unstash_index(sync=False, branch=None):
         ):
             return stash[7]
 
-def unstash_it(sync=False, branch=None):
+def unstash_it(sync=False):
     """Unstashes changes from current branch for branch sync."""
 
     repo_check()
 
-    stash_index = unstash_index(sync=sync, branch=branch)
+    stash_index = unstash_index(sync=sync)
 
     if stash_index is not None:
         return repo.git.execute([git,
