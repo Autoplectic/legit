@@ -71,7 +71,7 @@ def unstash_index(sync=False):
     repo_check()
 
     stash_list = repo.git.execute([git,
-        'stash', 'list', '--date=default'])
+        'stash', 'list'])
 
     for stash in stash_list.splitlines():
 
