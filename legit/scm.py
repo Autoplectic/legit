@@ -86,7 +86,9 @@ def unstash_index(sync=False):
                 ('On {0}:'.format(branch) in stash) and
                 (verb in stash))
         ):
-            return stash[7]
+            start = stash.index('{') + 1
+            end = stash.index('}')
+            return stash[start:end]
 
 def unstash_it(sync=False):
     """Unstashes changes from current branch for branch sync."""
