@@ -131,7 +131,7 @@ def cmd_switch(args):
         display_available_branches()
         sys.exit()
     
-    if repo.is_dirty():
+    if repo.is_dirty(untracked_files=True):
         status_log(stash_it, 'Saving local changes.')
 
     status_log(checkout_branch, 'Switching to {0}.'.format(
@@ -168,7 +168,7 @@ def cmd_sync(args):
         if is_external:
             switch_to(branch)
 
-        if repo.is_dirty():
+        if repo.is_dirty(untracked_files=True):
             status_log(stash_it, 'Saving local changes.', sync=True)
 
         status_log(smart_pull, 'Pulling commits from the server.')
@@ -218,7 +218,7 @@ def cmd_sprout(args):
         sys.exit(1)
 
 
-    if repo.is_dirty():
+    if repo.is_dirty(untracked_files=True):
         status_log(stash_it, 'Saving local changes.')
 
     status_log(sprout_branch, 'Branching {0} to {1}.'.format(
@@ -337,7 +337,7 @@ def cmd_harvest(args):
     if is_external:
         switch_to(to_branch)
 
-    if repo.is_dirty():
+    if repo.is_dirty(untracked_files=True):
         status_log(stash_it, 'Saving local changes.')
 
     status_log(smart_merge, 'Grafting commits from {0}.'.format(
